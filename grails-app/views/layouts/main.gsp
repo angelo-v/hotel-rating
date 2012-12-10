@@ -20,7 +20,10 @@
 	<body>
 		<div id="grailsLogo" role="banner">&nbsp;</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
+		<div class="footer" role="contentinfo">
+        <div><strong>Alle Daten fiktiv. | All data is fictional.</strong></div>
+        Linked Data consuming example application, by <g:link url="http://datenwissen.de">datenwissen.de</g:link> | Get source code <g:link url="https://github.com/angelo-v/hotel-rating">from github</g:link> | Data source: <g:link url="http://hotels.datenwissen.de/">http://hotels.datenwissen.de/</g:link> (<g:link url="https://github.com/angelo-v/hotels">github</g:link>)
+		</div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
 		<r:layoutResources />

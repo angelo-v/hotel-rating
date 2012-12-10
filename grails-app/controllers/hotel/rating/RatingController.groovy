@@ -8,13 +8,13 @@ import de.datenwissen.util.groovyrdf.core.RdfNamespace
 class RatingController {
 
     RdfLoader rdfLoader
-    RdfNamespace gr, acco, geo
+    RdfNamespace gr, acco, geo, foaf
 
     def show (String uri) {
         def hotelResource = rdfLoader.loadResource (uri)
         String name = hotelResource (gr.name)
-        String numberOfRooms = hotelResource (acco.numberOfRooms)
-        String cityUri = hotelResource."http://xmlns.com/foaf/0.1/based_near"?.uri
+        int numberOfRooms = hotelResource (acco.numberOfRooms)
+        String cityUri = hotelResource (foaf.based_near)?.uri
         String cityName = loadCityName (cityUri)
 
         return [
@@ -38,9 +38,12 @@ class RatingController {
     }
 
     private String getCityName (RdfResource cityResource) {
-        def germanCityName = cityResource (geo.alternateName, 'de')
-        germanCityName = germanCityName instanceof Collection ? germanCityName.first () : germanCityName
-        return germanCityName ?: cityResource (geo.name)
+        def germanCityName = first (cityResource (geo.alternateName, 'de'))
+        return germanCityName ?: first (cityResource (geo.name))
+    }
+
+    private String first (def stringOrCollection) {
+        stringOrCollection instanceof Collection ? stringOrCollection.first () : stringOrCollection
     }
 
     def save (String uri, int rating, String comment) {
